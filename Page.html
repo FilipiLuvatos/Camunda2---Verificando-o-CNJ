@@ -32,11 +32,14 @@
 
     <label for="strNPC">CNJ</label><br>
     <input class="form-control" name="CNJ" cam-variable-type="String" cam-variable-name="CNJ" type="text"
-      maxlength="25" required="number" id="cnj2"><br>
+      maxlength="25" required="number" id="cnj2" onchange="verificar(this)"><br>
+
+     
     <br>
 
 
-    <input type="submit" onclick="captura()" value="Enviar">    
+    <input type="submit" onclick="captura()"  value="Enviar"> 
+    <input type="submit" onclick="verificador()" value="Validar CNJ">    
 
   
 
@@ -44,11 +47,9 @@
   <p id="mostra2"></p>
   <p id="mostra3"></p>
   <p id="mostra4"></p>
+  <p id="mostra5"></p>
 
-  <script src="index.js">
-    
-
-  </script>
+  <script src="index.js"></script>
 
   <script src="verificador.js"></script>
 </body>

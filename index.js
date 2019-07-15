@@ -5,6 +5,8 @@ var aux = "",cli,dat,so;
 
     function captura() {
 
+      
+
       cli = document.getElementById('cliente').value;
       document.getElementById('mostra2').innerHTML = cli;
 
@@ -27,7 +29,7 @@ var aux = "",cli,dat,so;
       var res = n + traco + d + ponto + a + ponto + j + ponto + tr + ponto + o;
 
       
-      document.getElementById('mostra4').innerHTML = res;
+      document.getElementById('mostra5').innerHTML = res;
     
     }
 
