@@ -2,6 +2,8 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Exercício Camunda </title>
 
 </head>
@@ -9,49 +11,114 @@
 <body>
 
   <h2>Camunda</h2>
- 
+
+  <form class="form">
+    <div class="form-row">
+      <div class="col">
+        <div class="form-group">
 
 
-    <label for="strNPC">Solicitante</label><br>
-    <input class="form-control" name="solicitante" cam-variable-type="String" cam-variable-name="solicitante"
-      type="text" id="soli">
-    <br>
+          <label for="solicitante">Solicitante</label><br>
+          <input class="form-control" name="solicitante" cam-variable-type="String" cam-variable-name="solicitante"
+            type="text" id="soli">
+          <br>
+        </div>
+
+        <div class="form-group">
 
 
-    <label for="strNPC">Cliente</label><br>
-    <input class="form-control" name="cliente" cam-variable-type="String" cam-variable-name="cliente" type="text"
-     id="cliente">
-    <br>
+          <label for="cliente">Cliente</label><br>
+          <input class="form-control" name="cliente" cam-variable-type="String" cam-variable-name="cliente" type="text"
+            id="cliente">
+          <br>
+        </div>
+        <div class="form-group">
+
+          <label for="Data_solicitacao">Data de Solicitação</label><br>
+          <input class="form-control" name="Data_solicitacao" cam-variable-type="String"
+            cam-variable-name="Data_solicitacao" type="date" id="data">
+          <br>
+        </div>
+        <div class="form-group">
+          <label for="CNJ">CNJ</label><br>
+          <input class="form-control" name="CNJ" cam-variable-type="String" cam-variable-name="CNJ" type="text"
+            maxlength="25" required="number" id="cnj2" onchange="verificar(this)"><br>
+        </div>
+
+        <br>
 
 
-    <label for="strNPC">Data de Solicitação</label><br>
-    <input class="form-control" name="Data_solicitacao" cam-variable-type="String" cam-variable-name="Data_solicitacao"
-      type="date" id="data">
-    <br>
+        <input type="submit" onclick="captura()" value="Enviar">
+        <input type="submit" onclick="verificador()" value="Validar CNJ">
+
+        <script src="index.js"></script>
+        <script src="verificador.js"></script>
+        <script>
+          /*Para funcinar na pagina web, executar as duas linhas a cima,
+            Para funcionar no Camunda, ignorar as duas linhas a cima*/
+        </script>
+
+        <p id="mostra"></p>
+        <p id="mostra2"></p>
+        <p id="mostra3"></p>
+        <p id="mostra4"></p>
+        <p id="mostra5"></p>
+      </div>
+    </div>
+  </form>
+
+  <script cam-script type="text/form-script">
+    camForm.on('submit', function(evt) {
+      var validarcnj = document.getElementById("cnj2");
+      if(!verificar(validarcnj))
+        evt.preventDefault();       
+    </script>
+
+  <script type="text/javascript">
 
 
-    <label for="strNPC">CNJ</label><br>
-    <input class="form-control" name="CNJ" cam-variable-type="String" cam-variable-name="CNJ" type="text"
-      maxlength="25" required="number" id="cnj2" onchange="verificar(this)"><br>
+    function verificar(NumeroCNJ) {
+      // alert('O campo CNJ aceita APENAS números!');
+      var cnj = NumeroCNJ.value
+      cnj = cnj.replace(/\D/g, "");   //Remove tudo o que não é dígito
+      cnj = cnj.replace(/(\d{7})(\d{2})(\d{4})(\d{3})(\d{4})/, "$1-$2.$3.$4.$5");
+      document.getElementById('cnj2').value = cnj
 
-     
-    <br>
+    }
+
+    var n1, d1, d2, a1, j1, tr1, o1;
+
+    function verificador() {
+
+      valores = document.getElementById('cnj2').value;
+
+      n1 = valores.substring(0, 7); //2222222
+      d1 = valores.substring(8, 10); //15
+      a1 = valores.substring(11, 15);//2019
+      j1 = valores.substring(16, 17);//5
+      tr1 = valores.substring(17, 19);//08
+      o1 = valores.substring(20, 24);//0000 
+      var auxiliar = d1
+      d1 = "00"
+
+      resto1 = (n1 % 97)
+      resto2 = ((resto1 + a1 + j1 + tr1) % 97)
+      resto3 = ((resto2 + o1 + d1) % 97)
+      resultado = 98 - (parseInt(resto3))
+      alert(resultado)
+
+      if (resultado == auxiliar) {
+        alert("CNJ VALIDO")
+      } else {
+        alert("CNJ NAO VALIDO")
+      }
+    }
+
+  </script>
 
 
-    <input type="submit" onclick="captura()"  value="Enviar"> 
-    <input type="submit" onclick="verificador()" value="Validar CNJ">    
 
-  
 
-  <p id="mostra"></p>
-  <p id="mostra2"></p>
-  <p id="mostra3"></p>
-  <p id="mostra4"></p>
-  <p id="mostra5"></p>
-
-  <script src="index.js"></script>
-
-  <script src="verificador.js"></script>
 </body>
 
 </html>

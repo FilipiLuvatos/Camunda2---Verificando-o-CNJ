@@ -36,7 +36,7 @@ function verificador() {
 
     var res = 98 - (parseInt(aux3) % 97);
     
-    alert(res);
+   // alert(res);
     //alert(auxiliar);
     if(res == auxiliar){
         var fi = "CNJ É VALIDO"
@@ -51,3 +51,9 @@ function verificador() {
    
 
 }
+
+
+{/* <script src="index.js"></script>
+
+<script src="verificador.js"></script>
+ */}
